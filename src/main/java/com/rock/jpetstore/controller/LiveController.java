@@ -41,7 +41,7 @@ public class LiveController {
 			long finish = System.currentTimeMillis();
 			long timeElapsed = finish - start;
 
-			map.put("deplay", "OK");
+			map.put("delay", "OK");
 			map.put("timeElapsed", timeElapsed + " milliseconds");
 
 		} catch (InterruptedException ie) {
