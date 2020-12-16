@@ -26,12 +26,31 @@ public class LiveController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "video not found")
-	@RequestMapping(method = RequestMethod.GET, path = "/")
-	public class VideoNotFoundException extends RuntimeException {
+	@RequestMapping(method = RequestMethod.GET, path = "/delay")
+	public ResponseEntity<Object> delay(@RequestParam Integer seconds) throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		headers.add("Retry-After", "3600");
+		HashMap<String, String> map = new HashMap<>();
+
+		try {
+			long start = System.currentTimeMillis();
+
+			Thread.sleep(seconds * 1000);
+
+			long finish = System.currentTimeMillis();
+			long timeElapsed = finish - start;
+
+			map.put("deplay", "OK");
+			map.put("timeElapsed", timeElapsed + " milliseconds");
+
+		} catch (InterruptedException ie) {
+			Thread.currentThread().interrupt();
+		}
+		return new ResponseEntity<>(map, headers, HttpStatus.OK);
 	}
-	
-	//@ResponseStatus(HttpStatus.OK)
+
+	// @ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.GET, path = "/live")
 	public @ResponseBody ResponseEntity<Object> live() {
 
@@ -55,8 +74,8 @@ public class LiveController {
 		healthChecks.add(app);
 		healthChecks.add(database);
 
-	    map.put("health", healthChecks);
-	       
+		map.put("health", healthChecks);
+
 		return new ResponseEntity<>(map, headers, HttpStatus.OK);
 	}
 }
