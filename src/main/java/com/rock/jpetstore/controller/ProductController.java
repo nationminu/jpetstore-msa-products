@@ -79,7 +79,7 @@ public class ProductController {
 		return new ResponseEntity<>(map, headers, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@RequestMapping(value = "/products/create", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public ResponseEntity<Map<Object, Object>> insert(@RequestBody Products products) {
 
 		HttpHeaders headers = new HttpHeaders();
