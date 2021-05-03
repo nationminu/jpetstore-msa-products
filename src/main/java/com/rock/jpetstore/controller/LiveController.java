@@ -66,7 +66,7 @@ public class LiveController {
 		HealthCheck database = new HealthCheck(appName + "-db", "OK", dateNow);
 
 		try {
-			jdbcTemplate.execute("SELECT 1");
+			jdbcTemplate.execute("select 1 from INFORMATION_SCHEMA.SYSTEM_USERS");
 		} catch (Exception e) {
 			database.setStatus("err");
 		}

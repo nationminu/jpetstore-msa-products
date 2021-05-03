@@ -72,11 +72,12 @@ public class ProductController {
 			productService.delete(productid);
 
 			map.put("result", "OK");
+			map.put("productid", productid);
+			return new ResponseEntity<>(map, headers, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			map.put("result", "NOK");
-		}
-
-		return new ResponseEntity<>(map, headers, HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(map, headers, HttpStatus.NO_CONTENT);
+		} 
 	}
 
 	@RequestMapping(value = "/products/create", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
@@ -92,12 +93,12 @@ public class ProductController {
 			productService.save(products);
 
 			map.put("result", "OK");
+			map.put("products", products);
+			return new ResponseEntity<>(map, headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			map.put("result", "NOK");
 			return new ResponseEntity<>(map, headers, HttpStatus.BAD_REQUEST);
-		}
-
-		return new ResponseEntity<>(map, headers, HttpStatus.CREATED);
+		} 
 	}
 
 	@RequestMapping(value = "/products/{productid}", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
@@ -113,11 +114,11 @@ public class ProductController {
 			productService.save(products);
 
 			map.put("result", "OK");
+			map.put("products", products);
+			return new ResponseEntity<>(map, headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			map.put("result", "NOK");
 			return new ResponseEntity<>(map, headers, HttpStatus.BAD_REQUEST);
-		}
-
-		return new ResponseEntity<>(map, headers, HttpStatus.CREATED);
+		} 
 	}
 }
