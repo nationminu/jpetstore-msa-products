@@ -55,6 +55,25 @@ public class ProductController {
 		}
 	}
 	
+
+	// @ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = "/products/filter/{keyword}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public ResponseEntity<Object> get_filter_by_name(@PathVariable String keyword) throws Exception {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		headers.add("Retry-After", "3600");
+
+		List<Products> products = productService.findFilterByName(keyword);
+
+		if (products == null) {
+			return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(products, headers, HttpStatus.OK);
+		}
+	}
+	
+	
 	@RequestMapping(value = "/products/{productid}/items", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<Object> get_items(@PathVariable String productid) throws Exception {
 

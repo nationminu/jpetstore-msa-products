@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Component
 public class ProductService {
-
+ 
 	@Autowired
 	private ProductRepository productRepository;
 
@@ -19,6 +19,12 @@ public class ProductService {
 	public List<Products> getAll() {
 		return productRepository.findAll();
 	}
+	
+
+	public List<Products> findFilterByName(String keyword) {
+		return productRepository.findByNameContainingIgnoreCase(keyword);
+	}
+
 
 	public Products getById(String productid) {
 		return productRepository.findByProductId(productid);
