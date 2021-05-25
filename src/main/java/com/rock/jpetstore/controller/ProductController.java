@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
+import org.apache.http.HttpEntity; 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +34,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Value("${items.server.url}")
+	private String itemServer;
 
 	// @ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
@@ -65,7 +68,8 @@ public class ProductController {
 
         
 		try {
- 		    HttpGet request = new HttpGet("http://127.0.0.1:8082/items");
+ 		    //HttpGet request = new HttpGet("http://127.0.0.1:8082/items");
+			HttpGet request = new HttpGet(itemServer);
 
 		    request.addHeader("api-key", "change-key");
 	        request.addHeader(HttpHeaders.USER_AGENT, "Googlebot");
@@ -76,33 +80,32 @@ public class ProductController {
 	        try {
 
                 // Get HttpResponse Status
-                System.out.println(response.getProtocolVersion());              // HTTP/1.1
-                System.out.println(response.getStatusLine().getStatusCode());   // 200
-                System.out.println(response.getStatusLine().getReasonPhrase()); // OK
-                System.out.println(response.getStatusLine().toString());        // HTTP/1.1 200 OK
+                //System.out.println(response.getProtocolVersion());              // HTTP/1.1
+                //System.out.println(response.getStatusLine().getStatusCode());   // 200
+                //System.out.println(response.getStatusLine().getReasonPhrase()); // OK
+                //System.out.println(response.getStatusLine().toString());        // HTTP/1.1 200 OK
 
-                HttpEntity entity = response.getEntity();
-
+                HttpEntity entity = response.getEntity(); 
 	                
 	            if (entity != null) {
 
 	                String result = EntityUtils.toString(entity);
-	                System.out.println(result); 
+	                //System.out.println(result); 
 	                
 	            	ObjectMapper mapper = new ObjectMapper(); 
 	            	Items[] items = mapper.readValue(result, Items[].class);
 	            	ArrayList<Items> new_items = new ArrayList<Items>();
 	            	for (Items i : items) {
 	            		if(i.getProductId().equals(productid)) {
-	            			System.out.println(i);
+	            			//System.out.println(i);
 	            			new_items.add(i);
 	            		}
 	                }
 
-	                //System.out.println(items);
+	                //System.out.println(new_items);
 	            	
 	                // return it as a String
-	    			return new ResponseEntity<>(items, headers, HttpStatus.OK);
+	    			return new ResponseEntity<>(new_items, headers, HttpStatus.OK);
 	                
 	            }
 	        } finally {

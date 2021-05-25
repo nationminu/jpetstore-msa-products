@@ -24,6 +24,9 @@ logging.level.com.rock.jpetstore: DEBUG
 #springdoc.api-docs.path: /api-docs
 springdoc.swagger-ui.path: /swagger.html
 springdoc.swagger-ui.operationsSorter: method
+
+items.server.url: http://items:8080/items
+#items.server.url: http://127.0.0.1:8082/items
 --- 
 spring.profiles: prod
 

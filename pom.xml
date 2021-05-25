@@ -42,8 +42,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.13</version>
+			<artifactId>httpclient</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>io.micrometer</groupId>
@@ -52,8 +51,7 @@
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.5.1</version>
+			<artifactId>hsqldb</artifactId> 
 		</dependency>
 
 		<dependency>
