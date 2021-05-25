@@ -35,7 +35,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@Value("${items.server.url}")
+	@Value("${item.server.url}")
 	private String itemServer;
 
 	// @ResponseStatus(HttpStatus.OK)
@@ -54,9 +54,9 @@ public class ProductController {
 			return new ResponseEntity<>(products, headers, HttpStatus.OK);
 		}
 	}
-
+	
 	@RequestMapping(value = "/products/{productid}/items", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public ResponseEntity<Object> get(@PathVariable String productid) throws Exception {
+	public ResponseEntity<Object> get_items(@PathVariable String productid) throws Exception {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
@@ -124,7 +124,7 @@ public class ProductController {
 	
 
 	@RequestMapping(value = "/products/{productid}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public ResponseEntity<Object> get_items(@PathVariable String productid) throws Exception {
+	public ResponseEntity<Object> get(@PathVariable String productid) throws Exception {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
